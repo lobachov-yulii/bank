@@ -1,13 +1,15 @@
 package com.ku.bank;
 
-public class Account {
-    private long id;
-    private long entityId;
-    private long balance;
-    private long bankId;
-    private int isCompany;
+import java.util.Objects;
 
-    public Account (long id, long entityId, long balance, long bankId, int isCompany) {
+public class Account {
+    private Long id;
+    private Long entityId;
+    private Long balance;
+    private Long bankId;
+    private Boolean isCompany;
+
+    public Account (long id, long entityId, long balance, long bankId, boolean isCompany) {
         this.id = id;
         this.entityId = entityId;
         this.balance = balance;
@@ -15,38 +17,43 @@ public class Account {
         this.isCompany = isCompany;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
-    public long getId() {
+
+    public Long getId() {
         return id;
     }
 
-    public void setEntityId(long entityId) {
+    public void setEntityId(Long entityId) {
         this.entityId = entityId;
     }
-    public long getEntityId() {
+
+    public Long getEntityId() {
         return entityId;
     }
 
-    public void setBalance(long balance) {
+    public void setBalance(Long balance) {
         this.balance = balance;
     }
-    public long getBalance() {
+
+    public Long getBalance() {
         return balance;
     }
 
-    public void setBankId(long bankId) {
+    public void setBankId(Long bankId) {
         this.bankId = bankId;
     }
-    public long getBankId() {
+
+    public Long getBankId() {
         return bankId;
     }
 
-    public void setIsCompany(int isCompany) {
+    public void setIsCompany(Boolean isCompany) {
         this.isCompany = isCompany;
     }
-    public int getIsCompany() {
+
+    public Boolean getIsCompany() {
         return isCompany;
     }
 
@@ -69,17 +76,15 @@ public class Account {
             return false;
         }
         Account account = (Account) obj;
-        return account.id == id &&
-                account.entityId == entityId &&
-                account.balance == balance &&
-                account.bankId == bankId &&
-                account.isCompany == isCompany;
+        return account.id.equals(id) &&
+                account.entityId.equals(entityId) &&
+                account.balance.equals(balance)  &&
+                account.bankId.equals(bankId) &&
+                account.isCompany.equals(isCompany);
     }
 
     @Override
-    public int hashCode() {
-        int result = 17;
-        result = (int) (31 * result + id);
-                return result;
-    }
+    public int hashCode() {                            // переопределение hashCode
+        return Objects.hash(id, entityId, balance, bankId, isCompany);
+            }
 }
