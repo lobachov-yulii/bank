@@ -1,6 +1,7 @@
 package com.ku.bank;
 
 import java.util.Objects;
+import java.util.StringJoiner;
 
 public class Account {
     private Long id;
@@ -60,11 +61,13 @@ public class Account {
 
     @Override
     public String toString () {        // переопределение метода toString
-        return "Account [id=" + id
-                + ", entityId=" + entityId
-                + ", balance=" + balance
-                + ", bankId=" + bankId
-                + ", isCompany=" + isCompany + "]";
+        return new StringJoiner (", ", Account.class.getSimpleName() + " [", "]")
+                .add("id=" + id)
+                .add("entityId=" + entityId)
+                .add("balance=" + balance)
+                .add("bankId=" + bankId)
+                .add("isCompany=" + isCompany)
+                .toString();
     }
 
     @Override
@@ -75,16 +78,23 @@ public class Account {
         if (obj == null || obj.getClass() != this.getClass()) {
             return false;
         }
-        Account account = (Account) obj;
-        return account.id.equals(id) &&
-                account.entityId.equals(entityId) &&
-                account.balance.equals(balance)  &&
-                account.bankId.equals(bankId) &&
-                account.isCompany.equals(isCompany);
+        Account aThat = (Account) obj;
+        return id.equals(aThat.id) &&
+                entityId.equals(aThat.entityId) &&
+                balance.equals(aThat.balance)  &&
+                bankId.equals(aThat.bankId) &&
+                isCompany.equals(aThat.isCompany);
     }
 
     @Override
     public int hashCode() {                            // переопределение hashCode
-        return Objects.hash(id, entityId, balance, bankId, isCompany);
+        int result = 17;
+
+        result = 37 * result + (int) (id - (id >>> 32));
+        result = 37 * result + (int) (entityId - (entityId >>> 32));
+        result = 37 * result + (int) (balance - (balance >>> 32));
+        result = 37 * result + (int) (bankId - (bankId >>> 32));
+        result = 37 * result + (isCompany ? 1 : 0 );
+                return result;
             }
 }
